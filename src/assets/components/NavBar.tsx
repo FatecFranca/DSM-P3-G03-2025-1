@@ -3,19 +3,19 @@ import { Link, useLocation } from "react-router-dom"
 
 export function NavBar() {
     const location = useLocation();
-    const verifyPath=(path:string) => {
-        
-        return location.pathname === path ? "bg-zinc-300" : "bg-zinc-200";
-        
+    const verifyPath = (path: string) => {
+
+        return location.pathname === path ? "bg-gray-700 text-blue-300" : "bg-gray-800 text-white/80";
+
 
     }
     const items = [
-        
+
         {
             title: "Home",
             icon: Home,
             path: "/",
-            
+
 
         },
         {
@@ -33,8 +33,8 @@ export function NavBar() {
             icon: ChartNoAxesCombined,
             path: "/relatorios"
         },
-      
-       
+
+
         {
             title: "Movimentações",
             icon: ArrowLeftRight,
@@ -52,26 +52,16 @@ export function NavBar() {
         },
     ]
     return (
-        <div className="flex flex-col w-40 h-screen p-4 bg-zinc-200 items-center justify-between ">
-            <div className="flex items-center">
-                <p>logo</p>
-            </div>
-            <div className="flex flex-col gap-2 items-start">
+        <div className="flex flex-col h-full bg-gray-800 items-center justify-between py-2 px-2">
+            <div className="flex flex-col gap-1">
                 {items.map((item) => (
-                    <Link to={item.path}>
-                        <div className={`flex gap-2 ${verifyPath(item.path)}`} key={item.title}>
-                            <item.icon />
-                            <p>{item.title}</p>
-
-                        </div>
+                    <Link to={item.path} className={`flex gap-2 ${verifyPath(item.path)} p-2 w-full`} key={item.title}>
+                        <item.icon size={20}/>
+                        <p>{item.title}</p>
                     </Link>
-
                 ))}
             </div>
-            <div className="flex items-center">
-
-            </div>
+            <p className="text-white/80 text-sm">Trabalho PI Fatec &copy;</p>
         </div>
-
     )
 }
