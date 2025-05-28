@@ -74,89 +74,89 @@ const products: Product[] = [
 export function Produtos() {
     return (
 
-        <div className="flex flex-col h-screen flex-1 bg-zinc-900 text-sm">
+        <div className="flex flex-col h-screen flex-1 bg-zinc-100 text-sm">
             <Header />
             <div className="flex flex-1">
                 <NavBar />
                 <div className="flex flex-col flex-1">
                     <div className="flex w-full px-4 py-4 justify-between">
                         <div className="flex gap-2">
-                            <button className="flex bg-gray-500  px-4 h-10 rounded-md items-center gap-1 text-white">
+                            <button className="flex bg-zinc-500  px-4 h-10 rounded-md items-center gap-1 text-white">
                                 <Plus />
                                 Cadastrar Produto
                             </button>
-                            <button className="flex border-1 border-blue-500 text-blue-300 px-4 h-10 rounded-md items-center gap-1">
+                            <button className="flex border-1 border-blue-500 text-blue-500 px-4 h-10 rounded-md items-center gap-1">
 
                                 <ArrowUp />
                                 Importar Produto
                             </button>
-                            <select name="a" id="a" className="flex border-1 border-blue-500 text-blue-300 px-4 h-10 rounded-md">
+                            <select name="a" id="a" className="flex border-1 border-blue-500 text-blue-500 px-4 h-10 rounded-md">
                                 <option value="a" disabled selected>Mais opções</option>
                             </select>
                         </div>
 
                         <div className="flex">
-                            <select name="a" id="a" className="flex bg-white/80 px-4 h-10 rounded-md  text-black">
+                            <select name="a" id="a" className="flex bg-white/80 px-4 h-10 rounded-md text-black border border-zinc-500">
                                 <option value="a" disabled selected>Todas as Categorias</option>
                             </select>
                         </div>
                     </div>
 
-                    <div className="overflow-auto p-4 bg-gray-900">
-                        <table className="min-w-full border border-gray-700 text-sm text-gray-300">
-                            <thead className="bg-gray-800 text-white">
+                    <div className="overflow-auto p-4 bg-zinc-100">
+                        <table className="min-w-full border border-zinc-400 text-sm text-black/80">
+                            <thead className="bg-zinc-100">
                                 <tr>
-                                    <th className="border border-gray-700 px-2 py-2">Código</th>
-                                    <th className="border border-gray-700 px-2 py-2">Nome</th>
-                                    <th className="border border-gray-700 px-2 py-2">Variações</th>
-                                    <th className="border border-gray-700 px-2 py-2">IPI</th>
-                                    <th className="border border-gray-700 px-2 py-2">Estoque</th>
-                                    <th className="border border-gray-700 px-2 py-2">Comissão</th>
-                                    <th className="border border-gray-700 px-2 py-2">Preço Tabela</th>
-                                    <th className="border border-gray-700 px-2 py-2">2024</th>
-                                    <th className="border border-gray-700 px-2 py-2">Atacado</th>
-                                    <th className="border border-gray-700 px-2 py-2">Desconto</th>
-                                    <th className="border border-gray-700 px-2 py-2">E-commerce</th>
+                                    <th className="border border-zinc-400 px-2 py-2">Código</th>
+                                    <th className="border border-zinc-400 px-2 py-2">Nome</th>
+                                    <th className="border border-zinc-400 px-2 py-2">Variações</th>
+                                    <th className="border border-zinc-400 px-2 py-2">IPI</th>
+                                    <th className="border border-zinc-400 px-2 py-2">Estoque</th>
+                                    <th className="border border-zinc-400 px-2 py-2">Comissão</th>
+                                    <th className="border border-zinc-400 px-2 py-2">Preço Tabela</th>
+                                    <th className="border border-zinc-400 px-2 py-2">2024</th>
+                                    <th className="border border-zinc-400 px-2 py-2">Atacado</th>
+                                    <th className="border border-zinc-400 px-2 py-2">Desconto</th>
+                                    <th className="border border-zinc-400 px-2 py-2">E-commerce</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {products.map((p, index) => (
                                     <tr
                                         key={index}
-                                        className={index % 2 === 0 ? "bg-gray-900" : "bg-gray-800"}
+                                        className={index % 2 === 0 ? "bg-zinc-200" : "bg-zinc-300"}
                                     >
-                                        <td className="border border-gray-700 px-2 py-2 text-center">
+                                        <td className="border border-zinc-400 px-2 py-2 text-center">
                                             {p.codigo}
                                         </td>
-                                        <td className="border border-gray-700 px-2 py-2">{p.nome}</td>
-                                        <td className="border border-gray-700 px-2 py-2 text-center">
+                                        <td className="border border-zinc-400 px-2 py-2">{p.nome}</td>
+                                        <td className="border border-zinc-400 px-2 py-2 text-center">
                                             {p.variacoes}
                                         </td>
-                                        <td className="border border-gray-700 px-2 py-2 text-center">
+                                        <td className="border border-zinc-400 px-2 py-2 text-center">
                                             {p.ipi}
                                         </td>
                                         <td
-                                            className={`border border-gray-700 px-2 py-2 text-center ${p.estoque < 0 ? "text-red-500" : ""
+                                            className={`border border-zinc-400 px-2 py-2 text-center ${p.estoque < 0 ? "text-red-500" : ""
                                                 }`}
                                         >
                                             {p.estoque}
                                         </td>
-                                        <td className="border border-gray-700 px-2 py-2 text-center">
+                                        <td className="border border-zinc-400 px-2 py-2 text-center">
                                             {p.comissao}
                                         </td>
-                                        <td className="border border-gray-700 px-2 py-2 text-center">
+                                        <td className="border border-zinc-400 px-2 py-2 text-center">
                                             {p.precoTabela}
                                         </td>
-                                        <td className="border border-gray-700 px-2 py-2 text-center">
+                                        <td className="border border-zinc-400 px-2 py-2 text-center">
                                             {p.preco2024}
                                         </td>
-                                        <td className="border border-gray-700 px-2 py-2 text-center">
+                                        <td className="border border-zinc-400 px-2 py-2 text-center">
                                             {p.precoAtacado}
                                         </td>
-                                        <td className="border border-gray-700 px-2 py-2 text-center">
+                                        <td className="border border-zinc-400 px-2 py-2 text-center">
                                             {p.precoDesconto}
                                         </td>
-                                        <td className="border border-gray-700 px-2 py-2 text-center">
+                                        <td className="border border-zinc-400 px-2 py-2 text-center">
                                             {p.precoEcommerce}
                                         </td>
                                     </tr>
