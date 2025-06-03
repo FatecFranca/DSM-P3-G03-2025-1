@@ -1,6 +1,6 @@
 import { ArrowUp, Plus } from "lucide-react";
-import { Header } from "../components/Header";
-import { NavBar } from "../components/NavBar";
+import { Header } from "../../components/Header";
+import { NavBar } from "../../components/NavBar";
 
 type Product = {
     codigo: number;

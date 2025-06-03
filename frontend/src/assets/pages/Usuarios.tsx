@@ -1,6 +1,6 @@
-import { Plus, Shield, User} from "lucide-react";
-import { Header } from "../components/Header";
-import { NavBar } from "../components/NavBar";
+import { Plus, Shield, User } from "lucide-react";
+import { Header } from "../../components/Header";
+import { NavBar } from "../../components/NavBar";
 
 type Usuario = {
     id: string;
@@ -77,10 +77,10 @@ export function Usuarios() {
                                         <td className="border border-zinc-400 px-2 py-2 text-center">
                                             {p.id}
                                         </td>
-                                        <td className="border border-zinc-400 px-2 py-2">
+                                        <td className="border border-zinc-400 px-2 py-2 text-center">
                                             {p.nome}
                                         </td>
-                                        <td className="border border-zinc-400 px-2 py-2">
+                                        <td className="border border-zinc-400 px-2 py-2 text-center">
                                             {p.idade}
                                         </td>
                                         <td className="border border-zinc-400 px-2 py-2 text-center">
@@ -89,9 +89,11 @@ export function Usuarios() {
                                         <td className="border border-zinc-400 px-2 py-2 text-center">
                                             {p.cpf}
                                         </td>
-                                        <td className="flex gap-2 border border-zinc-400 px-2 py-2 text-center">
-                                            {p.tipo === 'Administrador' ? <Shield/> : <User />}
-                                            {p.tipo}
+                                        <td className="border border-zinc-400 px-2 py-2 text-center">
+                                            <div className="flex gap-2">
+                                                {p.tipo === 'Administrador' ? <Shield /> : <User />}
+                                                {p.tipo}
+                                            </div>
                                         </td>
                                     </tr>
                                 ))}
