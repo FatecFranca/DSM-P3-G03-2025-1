@@ -1,6 +1,7 @@
 import { ArrowUp, Plus } from "lucide-react";
 import { Header } from "../../components/Header";
 import { NavBar } from "../../components/NavBar";
+import { useEffect, useState } from "react";
 
 type Product = {
     codigo: number;
@@ -16,62 +17,16 @@ type Product = {
     precoEcommerce: string;
 };
 
-const products: Product[] = [
-    {
-        codigo: 15696,
-        nome: "VELA AQUECEDORA",
-        variacoes: "12v",
-        ipi: "7%",
-        estoque: 0,
-        comissao: "--",
-        precoTabela: "US$ 81,03",
-        preco2024: "US$ 89,133",
-        precoAtacado: "US$ 64,824",
-        precoDesconto: "US$ 76,9785",
-        precoEcommerce: "US$ 68,8755",
-    },
-    {
-        codigo: 10,
-        nome: "TWISTER TRASEIRO PRI",
-        variacoes: "130 x 70 - 17",
-        ipi: "--",
-        estoque: -27,
-        comissao: "--",
-        precoTabela: "R$ 120,00",
-        preco2024: "R$ 132,00",
-        precoAtacado: "R$ 96,00",
-        precoDesconto: "R$ 114,00",
-        precoEcommerce: "R$ 102,00",
-    },
-    {
-        codigo: 42,
-        nome: "17 CROSS PRIME PNE",
-        variacoes: "748 110 X 90",
-        ipi: "--",
-        estoque: 1000,
-        comissao: "7%",
-        precoTabela: "R$ 130,00",
-        preco2024: "R$ 143,00",
-        precoAtacado: "R$ 104,00",
-        precoDesconto: "R$ 123,50",
-        precoEcommerce: "R$ 110,50",
-    },
-    {
-        codigo: 48,
-        nome: "19 CROSS PRIME",
-        variacoes: "749 - 80 x 100",
-        ipi: "--",
-        estoque: -60,
-        comissao: "--",
-        precoTabela: "R$ 120,00",
-        preco2024: "R$ 132,00",
-        precoAtacado: "R$ 96,00",
-        precoDesconto: "R$ 114,00",
-        precoEcommerce: "R$ 102,00",
-    },
-];
 
 export function Produtos() {
+    const [produtos, setProdutos] = useState<any[]>([])
+
+    useEffect(() => {
+        fetch("http://localhost:5000/products")
+            .then(res => res.json())
+            .then(data => setProdutos(data))
+            .catch(err => console.error("Erro ao carregar produtos", err))
+    }, [])
     return (
 
         <div className="flex flex-col h-screen flex-1 bg-zinc-100 text-sm">
@@ -120,7 +75,7 @@ export function Produtos() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {products.map((p, index) => (
+                                {produtos.map((p, index) => (
                                     <tr
                                         key={index}
                                         className={index % 2 === 0 ? "bg-zinc-200" : "bg-zinc-300"}
@@ -133,7 +88,7 @@ export function Produtos() {
                                             {p.variacoes}
                                         </td>
                                         <td className="border border-zinc-400 px-2 py-2 text-center">
-                                            {p.ipi}
+                                            {p.ipi === null ? '--' : p.ipi}
                                         </td>
                                         <td
                                             className={`border border-zinc-400 px-2 py-2 text-center ${p.estoque < 0 ? "text-red-500" : ""
@@ -142,22 +97,22 @@ export function Produtos() {
                                             {p.estoque}
                                         </td>
                                         <td className="border border-zinc-400 px-2 py-2 text-center">
-                                            {p.comissao}
+                                            {p.comissao === null ? '--' : p.comissao}
                                         </td>
                                         <td className="border border-zinc-400 px-2 py-2 text-center">
-                                            {p.precoTabela}
+                                            R$ {parseFloat(p.precoTabela).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                         </td>
                                         <td className="border border-zinc-400 px-2 py-2 text-center">
-                                            {p.preco2024}
+                                            R$ {parseFloat(p.preco2024).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                         </td>
                                         <td className="border border-zinc-400 px-2 py-2 text-center">
-                                            {p.precoAtacado}
+                                            R$ {parseFloat(p.precoAtacado).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                         </td>
                                         <td className="border border-zinc-400 px-2 py-2 text-center">
-                                            {p.precoDesconto}
+                                            R$ {parseFloat(p.precoDesconto).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                         </td>
                                         <td className="border border-zinc-400 px-2 py-2 text-center">
-                                            {p.precoEcommerce}
+                                            R$ {parseFloat(p.precoEcommerce).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                         </td>
                                     </tr>
                                 ))}
