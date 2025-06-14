@@ -1,7 +1,7 @@
 import { ShoppingBag } from "lucide-react";
-import { Header } from "../../components/Header";
-import { NavBar } from "../../components/NavBar";
-import { ChartsDashboard } from "../../components/ChartsDashboard";
+import { Header } from "../components/Header";
+import { NavBar } from "../components/NavBar";
+import { ChartsDashboard } from "../components/ChartsDashboard";
 
 export function Home() {
     return (

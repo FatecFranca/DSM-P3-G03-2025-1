@@ -14,7 +14,6 @@ const productSchema = new mongoose.Schema({
   precoEcommerce: String
 });
 
-// Explicitando o nome da coleção como 'products'
 const Produto = mongoose.model('Produto', productSchema, 'products');
 
 export default Produto;

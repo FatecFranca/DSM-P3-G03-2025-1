@@ -1,39 +1,18 @@
 import { Plus, Shield, User } from "lucide-react";
-import { Header } from "../../components/Header";
-import { NavBar } from "../../components/NavBar";
-
-type Usuario = {
-    id: string;
-    nome: string;
-    idade: number;
-    email: string;
-    senha: string;
-    cpf: string;
-    tipo: string
-};
-
-const usuarios: Usuario[] = [
-    {
-        id: 'ab34f',
-        nome: "Arthur Cesar Sousa Marcelino",
-        idade: 19,
-        email: 'arthurcesarmarcelino@gmail.com',
-        senha: '1234',
-        cpf: "000.000.000-00",
-        tipo: "Administrador"
-    },
-    {
-        id: 'sad90',
-        nome: "Hugo de Castro Rodrigues",
-        idade: 19,
-        email: 'hugo@gmail.com',
-        senha: 'asd@123',
-        cpf: "000.000.000-00",
-        tipo: "Funcionário"
-    },
-];
+import { Header } from "../components/Header";
+import { NavBar } from "../components/NavBar";
+import { useEffect, useState } from "react";
 
 export function Usuarios() {
+    const [usuarios, setUsuarios] = useState<any[]>([])
+
+    useEffect(() => {
+        fetch("http://localhost:5000/users")
+            .then(res => res.json())
+            .then(data => setUsuarios(data))
+            .catch(err => console.error("Erro ao carregar produtos", err))
+    }, [])
+
     return (
 
         <div className="flex flex-col h-screen flex-1 bg-zinc-100 text-sm">
@@ -75,7 +54,7 @@ export function Usuarios() {
                                         className={index % 2 === 0 ? "bg-zinc-200" : "bg-zinc-300"}
                                     >
                                         <td className="border border-zinc-400 px-2 py-2 text-center">
-                                            {p.id}
+                                            {p._id}
                                         </td>
                                         <td className="border border-zinc-400 px-2 py-2 text-center">
                                             {p.nome}

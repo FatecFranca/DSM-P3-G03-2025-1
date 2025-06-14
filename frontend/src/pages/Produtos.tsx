@@ -1,21 +1,7 @@
 import { ArrowUp, Plus } from "lucide-react";
-import { Header } from "../../components/Header";
-import { NavBar } from "../../components/NavBar";
+import { Header } from "../components/Header";
+import { NavBar } from "../components/NavBar";
 import { useEffect, useState } from "react";
-
-type Product = {
-    codigo: number;
-    nome: string;
-    variacoes: string;
-    ipi: string;
-    estoque: number;
-    comissao: string;
-    precoTabela: string;
-    preco2024: string;
-    precoAtacado: string;
-    precoDesconto: string;
-    precoEcommerce: string;
-};
 
 
 export function Produtos() {
@@ -36,7 +22,7 @@ export function Produtos() {
                 <div className="flex flex-col flex-1">
                     <div className="flex w-full px-4 py-4 justify-between">
                         <div className="flex gap-2">
-                            <button className="flex bg-zinc-500  px-4 h-10 rounded-md items-center gap-1 text-white">
+                            <button className="flex bg-zinc-500  px-4 h-10 rounded-md items-center gap-1 text-white" >
                                 <Plus />
                                 Cadastrar Produto
                             </button>

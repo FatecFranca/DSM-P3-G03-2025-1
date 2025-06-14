@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home } from "./assets/pages/Home";
-import { Produtos } from "./assets/pages/Produtos";
-import { Usuarios } from "./assets/pages/Usuarios";
+import { Home } from "./pages/Home";
+import { Produtos } from "./pages/Produtos";
+import { Usuarios } from "./pages/Usuarios";
 
 export default function App() {
   
