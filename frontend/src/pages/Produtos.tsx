@@ -2,10 +2,14 @@ import { ArrowUp, Plus } from "lucide-react";
 import { Header } from "../components/Header";
 import { NavBar } from "../components/NavBar";
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom'
+
 
 
 export function Produtos() {
     const [produtos, setProdutos] = useState<any[]>([])
+    const navigate = useNavigate()
+
 
     useEffect(() => {
         fetch("http://localhost:5000/products")
@@ -22,7 +26,7 @@ export function Produtos() {
                 <div className="flex flex-col flex-1">
                     <div className="flex w-full px-4 py-4 justify-between">
                         <div className="flex gap-2">
-                            <button className="flex bg-zinc-500  px-4 h-10 rounded-md items-center gap-1 text-white" >
+                            <button className="flex bg-zinc-500  px-4 h-10 rounded-md items-center gap-1 text-white"   onClick={() => navigate('/produtos/cadastrar')}>
                                 <Plus />
                                 Cadastrar Produto
                             </button>
