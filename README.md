@@ -84,12 +84,7 @@ cd DSM-P3-G03-2025-1
    ```bash
    npm install
    ```
-3. Crie um arquivo `.env` na raiz de `backend` com o seguinte conteúdo:
-   ```env
-   MONGO_URI=mongodb+srv://invexappuser:hsvQcfLa5tVnZJCx@invex.l7w2ykp.mongodb.net/invexdb?retryWrites=true&w=majority&appName=invex
-   PORT=5000
-   ```
-4. Inicie o backend:
+3. Inicie o backend:
    ```bash
    npx tsx server.ts
    ```
