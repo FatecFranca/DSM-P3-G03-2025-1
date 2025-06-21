@@ -1,5 +1,6 @@
 import express from 'express';
-import Usuario from '../models/Usuario';
+// @ts-ignore
+import Usuario from '../models/Usuario.js';
 
 const router = express.Router();
 

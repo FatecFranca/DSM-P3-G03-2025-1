@@ -1,5 +1,6 @@
 import express from 'express';
-import Produto from '../models/Produto';
+// @ts-ignore
+import Produto from '../models/Produto.js';
 
 const router = express.Router();
 
@@ -9,21 +10,35 @@ router.post('/add', async (req, res) => {
         await products.save();
         res.status(201).json(products);
     } catch (err) {
-        res.status(400).json({ error: err });
+        const errorMsg = err instanceof Error ? err.message : String(err);
+        res.status(400).json({ error: errorMsg });
     }
 });
 
 router.get('/', async (req, res) => {
   try {
-    const products = await Produto.find();  // Produto vai buscar na coleção 'products'
-    if (products.length === 0) {
-      return res.status(404).json({ message: 'Nenhum produto encontrado' });
+    const { categoria } = req.query;
+    let query = {};
+    if (categoria) {
+      query = { categoria };
     }
-    res.json(products);  // Retorna os produtos encontrados
+    const products = await Produto.find(query).populate('categoria');
+    res.json(products); // Sempre retorna array, mesmo vazio
   } catch (error) {
     console.error('Erro ao buscar produtos:', error);
     res.status(500).json({ error: 'Erro ao buscar produtos' });
   }
+});
+
+// Atualizar produto para trocar categoria ou estoque mínimo
+router.put('/:id', async (req, res) => {
+    try {
+        const produto = await Produto.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.json(produto);
+    } catch (err) {
+        const errorMsg = err instanceof Error ? err.message : String(err);
+        res.status(400).json({ error: errorMsg });
+    }
 });
 
 export default router;

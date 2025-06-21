@@ -8,14 +8,32 @@ import { useNavigate } from 'react-router-dom'
 
 export function Produtos() {
     const [produtos, setProdutos] = useState<any[]>([])
+    const [categorias, setCategorias] = useState<{_id: string, nome: string}[]>([])
+    const [categoriaFiltro, setCategoriaFiltro] = useState('')
+    const [alertaEstoque, setAlertaEstoque] = useState<string[]>([])
     const navigate = useNavigate()
 
 
     useEffect(() => {
-        fetch("http://localhost:5000/products")
+        fetch("http://localhost:5000/products" + (categoriaFiltro ? `?categoria=${categoriaFiltro}` : ''))
             .then(res => res.json())
-            .then(data => setProdutos(data))
-            .catch(err => console.error("Erro ao carregar produtos", err))
+            .then(data => {
+                const arr = Array.isArray(data) ? data : [];
+                setProdutos(arr)
+                // Alerta de estoque baixo
+                const alertas = arr.filter((p: any) => p.estoque <= p.estoqueMinimo).map((p: any) => p.nome)
+                setAlertaEstoque(alertas)
+            })
+            .catch(err => {
+                setProdutos([])
+                setAlertaEstoque([])
+                console.error("Erro ao carregar produtos", err)
+            })
+    }, [categoriaFiltro])
+    useEffect(() => {
+        fetch("http://localhost:5000/categorias")
+            .then(res => res.json())
+            .then(data => setCategorias(data.filter((c: any) => c.ativa)))
     }, [])
     return (
 
@@ -41,13 +59,29 @@ export function Produtos() {
                         </div>
 
                         <div className="flex">
-                            <select name="a" id="a" className="flex bg-white/80 px-4 h-10 rounded-md text-black border border-zinc-500">
-                                <option value="a" disabled selected>Todas as Categorias</option>
+                            <select value={categoriaFiltro} onChange={e => setCategoriaFiltro(e.target.value)} className="flex bg-white/80 px-4 h-10 rounded-md text-black border border-zinc-500">
+                                <option value="">Todas as Categorias</option>
+                                {categorias.map(cat => (
+                                    <option key={cat._id} value={cat._id}>{cat.nome}</option>
+                                ))}
                             </select>
                         </div>
                     </div>
 
+                    {alertaEstoque.length > 0 && (
+        <div className="bg-red-200 text-red-800 p-2 rounded mb-2">
+            Atenção: Estoque baixo para os produtos: {alertaEstoque.join(', ')}
+        </div>
+    )}
+
                     <div className="overflow-auto p-4 bg-zinc-100">
+                        {produtos.length === 0 ? (
+                            <div className="text-center text-zinc-500 py-8">
+                                {categoriaFiltro
+                                    ? `Sem produtos para a categoria "${categorias.find(c => c._id === categoriaFiltro)?.nome || ''}".`
+                                    : 'Nenhum produto cadastrado.'}
+                            </div>
+                        ) : (
                         <table className="min-w-full border border-zinc-400 text-sm text-black/80">
                             <thead className="bg-zinc-100">
                                 <tr>
@@ -62,6 +96,7 @@ export function Produtos() {
                                     <th className="border border-zinc-400 px-2 py-2">Atacado</th>
                                     <th className="border border-zinc-400 px-2 py-2">Desconto</th>
                                     <th className="border border-zinc-400 px-2 py-2">E-commerce</th>
+                                    <th className="border border-zinc-400 px-2 py-2">Categoria</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -104,10 +139,14 @@ export function Produtos() {
                                         <td className="border border-zinc-400 px-2 py-2 text-center">
                                             R$ {parseFloat(p.precoEcommerce).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                         </td>
+                                        <td className="border border-zinc-400 px-2 py-2">
+                                            {p.categoria?.nome || '-'}
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
+                        )}
                     </div>
                 </div>
             </div>

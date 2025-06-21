@@ -11,7 +11,9 @@ const productSchema = new mongoose.Schema({
   preco2024: String,
   precoAtacado: String,
   precoDesconto: String,
-  precoEcommerce: String
+  precoEcommerce: String,
+  estoqueMinimo: { type: Number, default: 0 },
+  categoria: { type: mongoose.Schema.Types.ObjectId, ref: 'Categoria' }
 });
 
 const Produto = mongoose.model('Produto', productSchema, 'products');

@@ -1,6 +1,6 @@
 // src/pages/CadastroProduto.tsx
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
@@ -31,10 +31,10 @@ const placeholders: Record<string, string> = {
   precoAtacado: 'Preço Atacado',
   precoDesconto: 'Preço Desconto',
   precoEcommerce: 'Preço Ecommerce',
+  estoqueMinimo: 'Estoque Mínimo',
 }
 
 const CadastroProduto = () => {
-
   const [produto, setProduto] = useState<Record<string, string>>({
     codigo: '',
     nome: '',
@@ -47,14 +47,22 @@ const CadastroProduto = () => {
     precoAtacado: '',
     precoDesconto: '',
     precoEcommerce: '',
+    estoqueMinimo: '',
+    categoria: '',
   })
 
+  const [categorias, setCategorias] = useState<{_id: string, nome: string}[]>([])
   const [loading, setLoading] = useState(false)
   const [mensagem, setMensagem] = useState('')
   const navigate = useNavigate()
 
+  useEffect(() => {
+    axios.get('http://localhost:5000/categorias?ativa=true')
+      .then(res => setCategorias(res.data))
+      .catch(() => {});
+  }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setProduto(prev => ({
       ...prev,
@@ -99,6 +107,8 @@ const CadastroProduto = () => {
         precoAtacado: '',
         precoDesconto: '',
         precoEcommerce: '',
+        estoqueMinimo: '',
+        categoria: '',
       })
     } catch (error) {
       console.error(error)
@@ -130,6 +140,20 @@ const CadastroProduto = () => {
               required={name === 'codigo' || name === 'nome'}
             />
           ))}
+
+          {/* Remover input manual de categoria e deixar apenas o select */}
+          <select
+            name="categoria"
+            value={produto.categoria}
+            onChange={handleChange}
+            className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+            required
+          >
+            <option value="">Selecione a Categoria</option>
+            {categorias.map((cat) => (
+              <option key={cat._id} value={cat._id}>{cat.nome}</option>
+            ))}
+          </select>
 
           <div className="col-span-2">
             <button
